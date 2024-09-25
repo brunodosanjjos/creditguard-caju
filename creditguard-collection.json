@@ -1,0 +1,284 @@
+{
+  "__export_date": "2024-09-25T15:34:43.696Z",
+  "__export_format": 4,
+  "__export_source": "insomnia.desktop.app:v10.0.0",
+  "_type": "export",
+  "resources": [
+    {
+      "_id": "req_7a554dc0f461468fb006e72da9ce2004",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727277563944,
+      "created": 1726958337224,
+      "url": "http://localhost:8080/actuator/health  ",
+      "name": "Health",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/10.0.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1727277465118,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_d66aa3de00be484eb46d403074fbe685",
+      "parentId": "wrk_c9600cbf846e45198d857b6599cd912a",
+      "modified": 1727277467080,
+      "created": 1727277467080,
+      "name": "manager-transaction",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1727277465019,
+      "preRequestScript": "",
+      "afterResponseScript": "",
+      "authentication": {},
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_c9600cbf846e45198d857b6599cd912a",
+      "parentId": null,
+      "modified": 1726958312241,
+      "created": 1726958312241,
+      "name": "CreditGuard.yaml",
+      "description": "",
+      "scope": "design",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_5e8cdcbabd6244beb06e32004b12b67f",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727277565769,
+      "created": 1727277380016,
+      "url": "http://localhost:8080/swagger-ui/index.html#/",
+      "name": "Swagger",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/10.0.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1727277465068,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_df9da371001449f5b4e0e7622cf5f225",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727278411430,
+      "created": 1727277297939,
+      "url": "http://localhost:8080/api-docs",
+      "name": "Api Docs",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "User-Agent",
+          "value": "insomnia/10.0.0"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1727277465043,
+      "isPrivate": false,
+      "pathParameters": [],
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_01a9471a004e426d9357902d0dd1696c",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727278355887,
+      "created": 1727277467082,
+      "url": "http://localhost:8080/v1/transaction",
+      "name": "Transaction Food",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "preRequestScript": "",
+      "metaSortKey": -1727277465017,
+      "isPrivate": false,
+      "afterResponseScript": "",
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_284ae700d6b44d6ea54abf93956b5f5d",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727278369304,
+      "created": 1727277467083,
+      "url": "http://localhost:8080/v1/transaction",
+      "name": "Transaction Meal",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "preRequestScript": "",
+      "metaSortKey": -1727277465016,
+      "isPrivate": false,
+      "afterResponseScript": "",
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_3565f65069584749b4444e4a77d28153",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727278371421,
+      "created": 1727277467081,
+      "url": "http://localhost:8080/v1/transaction",
+      "name": "Transaction Cash",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "preRequestScript": "",
+      "metaSortKey": -1727277465015.5,
+      "isPrivate": false,
+      "afterResponseScript": "",
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_c879e54e62cb49cb803199dec91c3e74",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727278398855,
+      "created": 1727277467084,
+      "url": "http://localhost:8080/v1/transaction",
+      "name": "Transaction For Merchant Description",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "preRequestScript": "",
+      "metaSortKey": -1727277465015,
+      "isPrivate": false,
+      "afterResponseScript": "",
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_6858ed861ecf0a59016f92ca20ed874818254905",
+      "parentId": "wrk_c9600cbf846e45198d857b6599cd912a",
+      "modified": 1726958312246,
+      "created": 1726958312246,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1726958312246,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_6858ed861ecf0a59016f92ca20ed874818254905",
+      "parentId": "wrk_c9600cbf846e45198d857b6599cd912a",
+      "modified": 1726958312249,
+      "created": 1726958312249,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_204a44bc768d45c5b4f9b1e14a72b446",
+      "parentId": "wrk_c9600cbf846e45198d857b6599cd912a",
+      "modified": 1727277106911,
+      "created": 1726958312244,
+      "fileName": "CreditGuard.yaml",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}

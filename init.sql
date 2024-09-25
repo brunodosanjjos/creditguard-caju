@@ -1,0 +1,5 @@
+CREATE DATABASE IF NOT EXISTS db_01_services;
+USE db_01_services;
+CREATE USER IF NOT EXISTS 'myuser'@'%' IDENTIFIED BY 'secret';
+GRANT ALL PRIVILEGES ON db_01_services.* TO 'myuser'@'%';
+FLUSH PRIVILEGES

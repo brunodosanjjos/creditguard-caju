@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: creditguard
+  sql:
+    init:
+      mode: always # to create tables using schema.sql and data.sql
+  datasource:
+    url: jdbc:mysql://localhost:3607/db_creditguard
+    username: ${DATABASE_USERNAME:myuser}
+    password: ${DATABASE_PASSWORD:secret}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect:org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+  threads:
+    virtual:
+      enabled: true
+  main:
+    allow-bean-definition-overriding: true
+  thymeleaf:
+    check-template-location: false
+
+logging:
+  level:
+    root: ERROR
+    org:
+      springframework: ERROR
+      hibernate: error
+
+springdoc:
+  api-docs:
+    path: /api-docs
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+ app:
+  name: creditguard
+  description: Desafio Técnico para CAJU - Bruno dos Anjos Campos
+  version: 0.0.1-SNAPSHOT
+  encoding: UTF-8
+  java:
+   version: 17.0.8.1
+
+
