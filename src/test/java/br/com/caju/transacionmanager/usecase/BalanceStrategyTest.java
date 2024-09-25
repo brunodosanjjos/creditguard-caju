@@ -2,7 +2,6 @@ package br.com.caju.transacionmanager.usecase;
 
 import br.com.caju.transacionmanager.domain.exception.InsufficientFundsException;
 import br.com.caju.transacionmanager.port.MccPort;
-import br.com.caju.transacionmanager.usecase.strategy.BalanceStrategy;
 import br.com.caju.transacionmanager.usecase.strategy.CashStrategy;
 import br.com.caju.transacionmanager.usecase.strategy.FoodStrategy;
 import br.com.caju.transacionmanager.usecase.strategy.MealStrategy;
@@ -22,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BalanceUseCaseTest {
+class BalanceStrategyTest {
 
     @Mock
     private MccPort mccPort;
@@ -33,17 +32,17 @@ class BalanceUseCaseTest {
     @Mock
     private MealStrategy mealStrategy;
     @Mock
-    private AccountUseCase accountUseCase;
+    private AccountStrategy accountStrategy;
 
-    private Set<BalanceStrategy> strategies;
+    private Set<br.com.caju.transacionmanager.usecase.strategy.BalanceStrategy> strategies;
     @InjectMocks
-    private BalanceUseCase balanceUseCase;
+    private BalanceStrategy balanceStrategy;
 
 
     @BeforeEach
     void setUp() {
         strategies = Set.of(cashStrategy, foodStrategy, mealStrategy);
-        ReflectionTestUtils.setField(balanceUseCase, "strategies", strategies);
+        ReflectionTestUtils.setField(balanceStrategy, "strategies", strategies);
 
     }
 
@@ -53,9 +52,9 @@ class BalanceUseCaseTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("FOOD");
         when(foodStrategy.isClassification("FOOD")).thenReturn(true);
-        balanceUseCase.processBalance(transaction, account);
+        balanceStrategy.processBalance(transaction, account);
         verify(foodStrategy, times(1)).processTransaction(transaction, account);
-        verify(accountUseCase, times(1)).update(any());
+        verify(accountStrategy, times(1)).update(any());
     }
 
     @Test
@@ -64,9 +63,9 @@ class BalanceUseCaseTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("MEAL");
         when(mealStrategy.isClassification("MEAL")).thenReturn(true);
-        balanceUseCase.processBalance(transaction, account);
+        balanceStrategy.processBalance(transaction, account);
         verify(mealStrategy, times(1)).processTransaction(transaction, account);
-        verify(accountUseCase, times(1)).update(any());
+        verify(accountStrategy, times(1)).update(any());
 
     }
 
@@ -76,9 +75,9 @@ class BalanceUseCaseTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("CASH");
         when(cashStrategy.isClassification("CASH")).thenReturn(true);
-        balanceUseCase.processBalance(transaction, account);
+        balanceStrategy.processBalance(transaction, account);
         verify(cashStrategy, times(1)).processTransaction(transaction, account);
-        verify(accountUseCase, times(1)).update(any());
+        verify(accountStrategy, times(1)).update(any());
 
     }
 
@@ -88,9 +87,9 @@ class BalanceUseCaseTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("CASH");
         assertThrows(RuntimeException.class, () ->
-                balanceUseCase.processBalance(transaction, account),
+                balanceStrategy.processBalance(transaction, account),
                 "classification not found");
-        verifyNoInteractions(accountUseCase);
+        verifyNoInteractions(accountStrategy);
 
     }
 }

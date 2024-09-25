@@ -25,9 +25,9 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .servers(Collections.singletonList(new Server()
                         .url("http://localhost:8080")
-                        .description("Server URL in Development")))
-                .info(new Info().title("Manager Transaction API")
-                        .description("Manager Transaction in Caju")
+                        .description("Server URL - Development")))
+                .info(new Info().title("CreditGuard Manager Transaction API")
+                        .description("CreditGuard Manager Transaction for Caju Chageller")
                         .version("v0.0.1")
                 );
     }

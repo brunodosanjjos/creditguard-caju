@@ -12,29 +12,34 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class MccUseCase implements MccPort {
+public class MccStrategy implements MccPort {
 
     private final MccRepository mccRepository;
     private final MerchantRepository merchantRepository;
-
 
     private String defaultClassification() {
         return "CASH";
     }
 
     public String findClassification(Transaction transaction) {
-        log.info("find classification of  merchant: {} or  mcc:  {}", transaction.getMcc(), transaction.getMerchant());
-        String mercantMcc;
+        log.info("Finding classification for merchant: {} or MCC: {}", transaction.getMerchant(), transaction.getMcc());
+        String merchantMcc = getMerchantMcc(transaction);
+        return getClassificationByMcc(merchantMcc);
+    }
+
+    private String getMerchantMcc(Transaction transaction) {
         try {
-            mercantMcc = merchantRepository.findMccByMerchantName(transaction.getMerchant())
+            return merchantRepository.findMccByMerchantName(transaction.getMerchant())
                     .orElseGet(transaction::getMcc);
         } catch (IncorrectResultSizeDataAccessException e) {
-            mercantMcc = transaction.getMcc();
+            log.warn("Multiple results found for merchant: {}. Using transaction MCC: {}", transaction.getMerchant(), transaction.getMcc());
+            return transaction.getMcc();
         }
+    }
 
-        return mccRepository.findClassificationByMcc(mercantMcc)
+    private String getClassificationByMcc(String mcc) {
+        return mccRepository.findClassificationByMcc(mcc)
                 .orElseGet(this::defaultClassification);
-
     }
 
 

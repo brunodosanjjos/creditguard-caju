@@ -19,19 +19,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AccountUseCaseTest {
+class AccountStrategyTest {
 
     @Mock
     private AccountRepository accountRepository;
 
     @InjectMocks
-    private AccountUseCase accountUseCase;
+    private AccountStrategy accountStrategy;
 
     @Test
     void testGetAccountWithSuccess(){
         Account account = getAccount();
         when(accountRepository.findById(account.getAccountId())).thenReturn(Optional.of(account));
-        var result = accountUseCase.getAccount(account.getAccountId());
+        var result = accountStrategy.getAccount(account.getAccountId());
         assertNotNull(result);
         assertEquals(account.getAccountId(), result.getAccountId());
         verify(accountRepository, times(1)).findById(account.getAccountId());
@@ -42,7 +42,7 @@ class AccountUseCaseTest {
         Account account = getAccount();
         doThrow(AccountNotFoundException.class).when(accountRepository).findById(account.getAccountId());
         Assertions.assertThrows(AccountNotFoundException.class,
-                () ->accountUseCase.getAccount(account.getAccountId()),
+                () -> accountStrategy.getAccount(account.getAccountId()),
                         "Account 1234 not exists");
         verify(accountRepository, times(1)).findById(account.getAccountId());
     }
@@ -52,7 +52,7 @@ class AccountUseCaseTest {
         var account = getAccount();
         account.setAmountFood(new BigDecimal("100"));
         when(accountRepository.save(account)).thenReturn(account);
-        var result = accountUseCase.update(account);
+        var result = accountStrategy.update(account);
         assertNotNull(result);
         assertEquals("1234", result.getAccountId());
         assertEquals(new BigDecimal("100"), result.getAmountFood());

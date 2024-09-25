@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class MccUseCaseTest {
+class MccStrategyTest {
 
     @Mock
     private MerchantRepository merchantRepository;
     @Mock
     private  MccRepository mccRepository;
     @InjectMocks
-    private MccUseCase mccUseCase;
+    private MccStrategy mccStrategy;
 
     @Test
     void findClassificationWithMerchant() {
@@ -32,7 +32,7 @@ class MccUseCaseTest {
 
         when(merchantRepository.findMccByMerchantName("UBER TRIP")).thenReturn(Optional.of("mcc"));
         when(mccRepository.findClassificationByMcc("mcc")).thenReturn(Optional.of("CASH"));
-        String classification = mccUseCase.findClassification(transaction);
+        String classification = mccStrategy.findClassification(transaction);
 
         assertEquals("CASH", classification);
         verify(merchantRepository, times(1)).findMccByMerchantName("UBER TRIP");
@@ -48,7 +48,7 @@ class MccUseCaseTest {
 
         when(merchantRepository.findMccByMerchantName("UBER EATS")).thenReturn(Optional.empty());
         when(mccRepository.findClassificationByMcc("mcc")).thenReturn(Optional.of("FOOD"));
-        String classification = mccUseCase.findClassification(transaction);
+        String classification = mccStrategy.findClassification(transaction);
 
         assertEquals("FOOD", classification);
         verify(merchantRepository, times(1)).findMccByMerchantName("UBER EATS");
@@ -63,7 +63,7 @@ class MccUseCaseTest {
 
         when(merchantRepository.findMccByMerchantName("UBER EATS")).thenReturn(Optional.empty());
         when(mccRepository.findClassificationByMcc("mcc")).thenReturn(Optional.empty());
-        String classification = mccUseCase.findClassification(transaction);
+        String classification = mccStrategy.findClassification(transaction);
 
         assertEquals("CASH", classification);
         verify(merchantRepository, times(1)).findMccByMerchantName("UBER EATS");
@@ -78,7 +78,7 @@ class MccUseCaseTest {
 
         when(merchantRepository.findMccByMerchantName("UBER")).thenThrow(IncorrectResultSizeDataAccessException.class);
         when(mccRepository.findClassificationByMcc("mcc")).thenReturn(Optional.of("FOOD"));
-        String classification = mccUseCase.findClassification(transaction);
+        String classification = mccStrategy.findClassification(transaction);
 
         assertEquals("FOOD", classification);
         verify(merchantRepository, times(1)).findMccByMerchantName("UBER");

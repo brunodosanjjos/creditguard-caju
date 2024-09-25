@@ -12,7 +12,7 @@ import static java.lang.String.format;
 
 @Service
 @AllArgsConstructor
-public class AccountUseCase implements AccountPort {
+public class AccountStrategy implements AccountPort {
 
     private final AccountRepository accountRepository;
 

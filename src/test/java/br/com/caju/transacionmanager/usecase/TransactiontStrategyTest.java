@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith({MockitoExtension.class})
-class TransactiontUseCaseTest {
+class TransactiontStrategyTest {
     @Mock
-    private AccountUseCase accountUseCase;
+    private AccountStrategy accountStrategy;
 
     @Mock
     private BalanceAmountPort balanceUseCase;
@@ -31,7 +31,7 @@ class TransactiontUseCaseTest {
     private TransactionRepository transactionRepository;
 
     @InjectMocks
-    private TransactiontUseCase transactiontUseCase;
+    private TransactiontStrategy transactiontStrategy;
 
 
     @Test
@@ -40,9 +40,9 @@ class TransactiontUseCaseTest {
         var transaction = getTransaction();
         var account =  getAccount();
         when(transactionMapper.toEntity(transactionDto)).thenReturn(transaction);
-        when(accountUseCase.getAccount(any())).thenReturn(account);
+        when(accountStrategy.getAccount(any())).thenReturn(account);
         doNothing().when(balanceUseCase).processBalance(transaction,account);
-        ResultDTO result = transactiontUseCase.authorizeTransaction(transactionDto);
+        ResultDTO result = transactiontStrategy.authorizeTransaction(transactionDto);
 
         assertEquals(TransactionResult.APPROVED.getCode(), result.getCode());
         assertEquals(TransactionResult.APPROVED.name(), transaction.getTransactionResult());
@@ -57,7 +57,7 @@ class TransactiontUseCaseTest {
         when(transactionMapper.toEntity(transactionDto)).thenReturn(transaction);
         doThrow(InsufficientFundsException.class).when(balanceUseCase).processBalance(any(), any());
 
-        ResultDTO result = transactiontUseCase.authorizeTransaction(transactionDto);
+        ResultDTO result = transactiontStrategy.authorizeTransaction(transactionDto);
         assertEquals(TransactionResult.DENIED.getCode(), result.getCode());
         assertEquals(TransactionResult.DENIED.name(), transaction.getTransactionResult());
         verify(transactionRepository, times(2)).save(transaction);
@@ -68,10 +68,10 @@ class TransactiontUseCaseTest {
         var transactionDto = getTransactiondDTO();
         var transaction = getTransaction();
         var account =  getAccount();
-        when(accountUseCase.getAccount(account.getAccountId())).thenReturn(account);
+        when(accountStrategy.getAccount(account.getAccountId())).thenReturn(account);
         when(transactionMapper.toEntity(transactionDto)).thenReturn(transaction);
         doThrow(RuntimeException.class).when(balanceUseCase).processBalance(transaction, account);
-        transactiontUseCase.authorizeTransaction(transactionDto);
+        transactiontStrategy.authorizeTransaction(transactionDto);
         assertEquals(TransactionResult.UNDETERMINED.name(), transaction.getTransactionResult());
         verify(transactionRepository, times(2)).save(transaction);
     }
