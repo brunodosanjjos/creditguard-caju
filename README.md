@@ -1,5 +1,5 @@
 # CreditGuard - Gerenciador de Transações (Java)
-#### Motivação: Desafio Tecnico Caju 2024
+#### Desafio Tecnico Caju 2024
 
 ### Descrição:
 CreditGuard é um sistema de gerenciamento de transações que classifica e autoriza transações com base em códigos MCC (Merchant Category Code).
@@ -9,10 +9,12 @@ Este projeto utiliza Spring Boot e o Mysql como banco de dados.
 - Introdução
 - Instalação
 - Uso
-- Estrutura do Projeto
-- Contribuição
-- Licença
-- Contato
+- Exemplo de Requisição
+- Diagrama da solucao
+- Passo a Passo para Execução
+- Documentacao da api
+- Collection
+- Questão aberta
 
 ### Introdução
 CreditGuard é um sistema projetado para gerenciar transações financeiras, classificando-as com base em códigos MCC 
@@ -66,7 +68,7 @@ curl -X POST http://localhost:8080/v1/transaction \
     }'
   ```  
 
-### Diagrama da solucao:
+### Modelagem das Tabelas:
 ![Modelagem Bando de dados ](../creditguard-caju/db_creditguard.png)
 
 
@@ -82,12 +84,12 @@ curl -X POST http://localhost:8080/v1/transaction \
 Use esse comando na pasta do projeto para criar uma imagem Docker e iniciar a container
 
 ##### 3. Verificar a Aplicação
-Abra o seu navegador e acesse http://localhost:8080/actuator/health para verificar se a aplicação está rodando corretamente.
+Abra o seu navegador ou gestor de chamadas e acesse http://localhost:8080/actuator/health para verificar a aplicação.
 
 
 ### Documentacao da api
 
-Para acessar a documentacao da api, acesse:
+Essas são as documentações da API:
 
 #### Open API:  http://localhost:8080/api-docs
 
@@ -96,13 +98,24 @@ Para acessar a documentacao da api, acesse:
 
 ### Collection
 
-Para importar a collection em uma API Client, baixe o arquivo **creditguard-collection.json** desse repositorio
+Para facilitar o uso das funcionalidades da API  baixe o arquivo **creditguard-collection.json** desse repositorio e adicione no seu gerenciador.
 
 
-### L4 -  Questão aberta
+### Questão aberta
 
-Em caso de transaçoes simultaneas, para garantir que apenas uma transação seja processada por vez, dado que estamos processando as
-transações de forma sincrona, foi implementado o bloqueio pessimsta, para garantir que nenhuma outra transação leia o registro na tabela,
-enquanto já existe uma transacao em andamento, evitando leituras sujas, para nao correr o risco de novas transaçoes lerem ou modificarem o dado
-durante o processamento da transação.
+Quando se pensa em gerenciamento de transações, a primeira ideia que nos vem à mente é um sistema de filas. 
+No entanto, dependendo do escopo que será executado, isso pode acabar ultrapassando a margem especificada. 
+Isso nos leva aos conceitos de mecanismos de bloqueio. Usar um bloqueio otimista assume que as transações raramente entram em conflito. 
+Ele verifica se os dados não foram alterados por outra transação antes de confirmar a operação. Porém também poderíamos ultrapassar a margem. 
+Já o bloqueio pessimista, por outro lado, assume que os conflitos são comuns e bloqueia os dados assim que uma transação começa a processá-los. 
+Em Java, você pode usar mecanismos de sincronização como o synchronized ou bibliotecas de concorrência como locks para garantir que apenas uma transação por vez possa acessar e modificar o saldo da conta. 
+Outra opção é usar ReentrantLock, que oferece mais controle sobre o bloqueio quando se trata de restringir até que ponto do método ou processo o bloqueio ficará ativo.
+
+Conclusão
+Escolher uma abordagem sobre gerenciamento de transações tem suas vantagens e desvantagens. 
+A escolha da melhor solução depende do contexto específico do sistema, qual a frequência de transações simultâneas e os 
+requisitos de desempenho. Usar bloqueio otimista ou pessimista é mais direto, enquanto o uso de um sistema de filas 
+como Kafka pode oferecer uma solução mais escalável e robusta para processamento de transações em alta escala. 
+Entretanto, algo que sempre deve ser priorizado é a qualidade e velocidade dos métodos implementados no gerenciamento 
+das transações via aplicação. Sem isso, todo o processo de fila ou bloqueio seria penalizado.
 
