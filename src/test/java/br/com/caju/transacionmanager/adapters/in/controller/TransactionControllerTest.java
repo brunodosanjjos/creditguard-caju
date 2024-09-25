@@ -17,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class AuthorizationControllerTest {
+class TransactionControllerTest {
 
     @Mock
     private TransactionPort transactionPort;
     @InjectMocks
-    private AuthorizationController authorizationController;
+    private TransactionController transactionController;
 
     @Test
     public void testAuthorizeTransactionSuccess() {
@@ -30,7 +30,7 @@ class AuthorizationControllerTest {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setCode(TransactionResult.APPROVED.getCode());
         when(transactionPort.authorizeTransaction(transactionDTO)).thenReturn(resultDTO);
-        ResponseEntity<ResultDTO> response = authorizationController.authorizeTransaction(transactionDTO);
+        ResponseEntity<ResultDTO> response = transactionController.authorizeTransaction(transactionDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(resultDTO, response.getBody());
     }
@@ -41,7 +41,7 @@ class AuthorizationControllerTest {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setCode(TransactionResult.DENIED.getCode());
         when(transactionPort.authorizeTransaction(transactionDTO)).thenReturn(resultDTO);
-        ResponseEntity<ResultDTO> response = authorizationController.authorizeTransaction(transactionDTO);
+        ResponseEntity<ResultDTO> response = transactionController.authorizeTransaction(transactionDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(resultDTO, response.getBody());
     }
@@ -51,7 +51,7 @@ class AuthorizationControllerTest {
         ResultDTO resultDTO = new ResultDTO();
         resultDTO.setCode(TransactionResult.UNDETERMINED.getCode());
         when(transactionPort.authorizeTransaction(transactionDTO)).thenReturn(resultDTO);
-        ResponseEntity<ResultDTO> response = authorizationController.authorizeTransaction(transactionDTO);
+        ResponseEntity<ResultDTO> response = transactionController.authorizeTransaction(transactionDTO);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(resultDTO, response.getBody());
     }

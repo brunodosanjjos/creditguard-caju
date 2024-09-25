@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class BalanceStrategyTest {
+class ProcessBalanceStrategyTest {
 
     @Mock
     private MccPort mccPort;
@@ -36,13 +36,13 @@ class BalanceStrategyTest {
 
     private Set<br.com.caju.transacionmanager.usecase.strategy.BalanceStrategy> strategies;
     @InjectMocks
-    private BalanceStrategy balanceStrategy;
+    private ProcessBalanceStrategy processBalanceStrategy;
 
 
     @BeforeEach
     void setUp() {
         strategies = Set.of(cashStrategy, foodStrategy, mealStrategy);
-        ReflectionTestUtils.setField(balanceStrategy, "strategies", strategies);
+        ReflectionTestUtils.setField(processBalanceStrategy, "strategies", strategies);
 
     }
 
@@ -52,7 +52,7 @@ class BalanceStrategyTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("FOOD");
         when(foodStrategy.isClassification("FOOD")).thenReturn(true);
-        balanceStrategy.processBalance(transaction, account);
+        processBalanceStrategy.processBalance(transaction, account);
         verify(foodStrategy, times(1)).processTransaction(transaction, account);
         verify(accountStrategy, times(1)).update(any());
     }
@@ -63,7 +63,7 @@ class BalanceStrategyTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("MEAL");
         when(mealStrategy.isClassification("MEAL")).thenReturn(true);
-        balanceStrategy.processBalance(transaction, account);
+        processBalanceStrategy.processBalance(transaction, account);
         verify(mealStrategy, times(1)).processTransaction(transaction, account);
         verify(accountStrategy, times(1)).update(any());
 
@@ -75,7 +75,7 @@ class BalanceStrategyTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("CASH");
         when(cashStrategy.isClassification("CASH")).thenReturn(true);
-        balanceStrategy.processBalance(transaction, account);
+        processBalanceStrategy.processBalance(transaction, account);
         verify(cashStrategy, times(1)).processTransaction(transaction, account);
         verify(accountStrategy, times(1)).update(any());
 
@@ -87,7 +87,7 @@ class BalanceStrategyTest {
         var account = getAccount();
         when(mccPort.findClassification(transaction)).thenReturn("CASH");
         assertThrows(RuntimeException.class, () ->
-                balanceStrategy.processBalance(transaction, account),
+                processBalanceStrategy.processBalance(transaction, account),
                 "classification not found");
         verifyNoInteractions(accountStrategy);
 

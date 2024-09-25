@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("v1/transaction")
 @AllArgsConstructor
 @Tag(name = "Authorization Transaction", description = "Management transactions APIs")
-public class AuthorizationController {
+public class TransactionController {
 
     private final TransactionPort transactionPort;
     @PostMapping
