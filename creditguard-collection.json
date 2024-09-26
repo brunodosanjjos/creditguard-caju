@@ -1,5 +1,5 @@
 {
-  "__export_date": "2024-09-25T15:34:43.696Z",
+  "__export_date": "2024-09-26T18:14:50.557Z",
   "__export_format": 4,
   "__export_source": "insomnia.desktop.app:v10.0.0",
   "_type": "export",
@@ -7,9 +7,9 @@
     {
       "_id": "req_7a554dc0f461468fb006e72da9ce2004",
       "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
-      "modified": 1727277563944,
+      "modified": 1727290287938,
       "created": 1726958337224,
-      "url": "http://localhost:8080/actuator/health  ",
+      "url": " http://localhost:8080/actuator/health",
       "name": "Health",
       "description": "",
       "method": "GET",
@@ -36,9 +36,9 @@
     {
       "_id": "fld_d66aa3de00be484eb46d403074fbe685",
       "parentId": "wrk_c9600cbf846e45198d857b6599cd912a",
-      "modified": 1727277467080,
+      "modified": 1727370844353,
       "created": 1727277467080,
-      "name": "manager-transaction",
+      "name": "creditguard-transaction-manager",
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
@@ -119,7 +119,7 @@
     {
       "_id": "req_01a9471a004e426d9357902d0dd1696c",
       "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
-      "modified": 1727278355887,
+      "modified": 1727370458475,
       "created": 1727277467082,
       "url": "http://localhost:8080/v1/transaction",
       "name": "Transaction Food",
@@ -127,7 +127,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+        "text": "{\n\t\"account\": \"1001\",\n\t\"totalAmount\": 25.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"UBER EATS                   SAO PAULO BR\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -140,6 +140,7 @@
       "preRequestScript": "",
       "metaSortKey": -1727277465017,
       "isPrivate": false,
+      "pathParameters": [],
       "afterResponseScript": "",
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -152,7 +153,7 @@
     {
       "_id": "req_284ae700d6b44d6ea54abf93956b5f5d",
       "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
-      "modified": 1727278369304,
+      "modified": 1727370462368,
       "created": 1727277467083,
       "url": "http://localhost:8080/v1/transaction",
       "name": "Transaction Meal",
@@ -160,7 +161,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+        "text": "{\n\t\"account\": \"1001\",\n\t\"totalAmount\": 60.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"Padaria NOSSA\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -185,7 +186,7 @@
     {
       "_id": "req_3565f65069584749b4444e4a77d28153",
       "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
-      "modified": 1727278371421,
+      "modified": 1727370466020,
       "created": 1727277467081,
       "url": "http://localhost:8080/v1/transaction",
       "name": "Transaction Cash",
@@ -193,7 +194,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+        "text": "{\n\t\"account\": \"1001\",\n\t\"totalAmount\": 70.00,\n\t\"mcc\": \"2354\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -218,7 +219,7 @@
     {
       "_id": "req_c879e54e62cb49cb803199dec91c3e74",
       "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
-      "modified": 1727278398855,
+      "modified": 1727370959887,
       "created": 1727277467084,
       "url": "http://localhost:8080/v1/transaction",
       "name": "Transaction For Merchant Description",
@@ -226,7 +227,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"account\": \"5678\",\n\t\"totalAmount\": 50.00,\n\t\"mcc\": \"5812\",\n\t\"merchant\": \"PICPAY*BILHETEUNICO\"\n}"
+        "text": "{\n\t\"account\": \"1001\",\n\t\"totalAmount\": 60.00,\n\t\"mcc\": \"4444\",\n\t\"merchant\": \"UBER EATS                   SAO PAULO BR\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -238,6 +239,39 @@
       "authentication": {},
       "preRequestScript": "",
       "metaSortKey": -1727277465015,
+      "isPrivate": false,
+      "afterResponseScript": "",
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_7a73207428bf4ee0ae6564a10305cb6a",
+      "parentId": "fld_d66aa3de00be484eb46d403074fbe685",
+      "modified": 1727371117568,
+      "created": 1727370951062,
+      "url": "http://localhost:8080/v1/transaction",
+      "name": "Transaction Insufficient Funds",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"account\": \"1001\",\n\t\"totalAmount\": 5000.00,\n\t\"mcc\": \"4444\",\n\t\"merchant\": \"UBER EATS                   SAO PAULO BR\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "preRequestScript": "",
+      "metaSortKey": -1727277464965,
       "isPrivate": false,
       "afterResponseScript": "",
       "settingStoreCookies": true,
