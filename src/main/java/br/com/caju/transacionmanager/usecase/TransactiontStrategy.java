@@ -22,10 +22,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TransactiontStrategy implements TransactionPort {
 
-    private final AccountStrategy accountStrategy;
-    private final BalanceAmountPort balanceUseCase;
-    private final TransactionMapper transactionMapper;
     private final TransactionRepository transactionRepository;
+    private final TransactionMapper transactionMapper;
+    private final BalanceAmountPort balanceUseCase;
+    private final AccountStrategy accountStrategy;
+
+
 
     @Override
     public ResultDTO authorizeTransaction(TransactionDTO transactionDto) {
