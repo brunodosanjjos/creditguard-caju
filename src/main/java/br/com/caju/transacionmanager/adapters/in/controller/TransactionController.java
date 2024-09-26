@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("v1/transaction")
 @AllArgsConstructor
-@Tag(name = "Authorization Transaction", description = "Management transactions APIs")
+@Tag(name = "Authorization Transaction", description = "CreditGuard transactions management APIs")
 public class TransactionController {
 
     private final TransactionPort transactionPort;
