@@ -24,7 +24,7 @@ public class FoodStrategy extends BalanceAbstract {
 
     public Account debitBalanceInAccount(Transaction transaction, Account account) throws InsufficientFundsException {
         log.info("preparing to debit {} in account {},  balance of {}", transaction.getAmount(), account.getAccountId(), CLASSIFICATION);
-
+        // Strategy L2 Challenge
         if (!super.hasCashSufficient(transaction.getAmount(), account.getAmountFood())) {
             throw new InsufficientFundsException(String.format("Insufficient balance in %s", CLASSIFICATION));
         }

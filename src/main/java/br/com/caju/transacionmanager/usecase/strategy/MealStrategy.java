@@ -24,6 +24,7 @@ public class MealStrategy extends BalanceAbstract implements BalanceStrategy {
 
     public Account debitBalanceInAccount(Transaction transaction, Account account) throws InsufficientFundsException {
         log.info("preparing to debit {} in account {},  balance of {}", transaction.getAmount(), account.getAccountId(), CLASSIFICATION);
+        // Strategy L2 Challenge
         if (!super.hasCashSufficient(transaction.getAmount(), account.getAmountMeal())) {
             throw new InsufficientFundsException(String.format("Insufficient balance in %s", CLASSIFICATION));
         }

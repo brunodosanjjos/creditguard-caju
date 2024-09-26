@@ -23,11 +23,12 @@ public class MccStrategy implements MccPort {
 
     public String findClassification(Transaction transaction) {
         log.info("Finding classification for merchant: {} or MCC: {}", transaction.getMerchant(), transaction.getMcc());
-        String merchantMcc = getMerchantMcc(transaction);
+        String merchantMcc = getMerchantMccForName(transaction);
         return getClassificationByMcc(merchantMcc);
     }
 
-    private String getMerchantMcc(Transaction transaction) {
+    private String getMerchantMccForName(Transaction transaction) {
+        // Strategy L1 and L3 Challenge
         try {
             return merchantRepository.findMccByMerchantName(transaction.getMerchant())
                     .orElseGet(transaction::getMcc);

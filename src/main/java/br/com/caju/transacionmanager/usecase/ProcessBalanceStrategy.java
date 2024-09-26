@@ -16,9 +16,9 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class ProcessBalanceStrategy implements BalanceAmountPort {
-    private final MccPort mccPort;
     private final Set<BalanceStrategy> strategies;
     private final AccountStrategy accountStrategy;
+    private final MccPort mccPort;
 
     @Override
     public void processBalance(Transaction transaction, Account account) throws InsufficientFundsException {
@@ -30,7 +30,6 @@ public class ProcessBalanceStrategy implements BalanceAmountPort {
     private BalanceStrategy getClassificationStrategy(Transaction transaction) {
         log.info("Getting classification for transaction {}", transaction.getTransactionId());
         String merchantClassification = mccPort.findClassification(transaction);
-        log.info("Transaction {} classified as {}", transaction.getTransactionId(), merchantClassification);
 
         return strategies.stream()
                 .filter(strategy -> strategy.isClassification(merchantClassification))

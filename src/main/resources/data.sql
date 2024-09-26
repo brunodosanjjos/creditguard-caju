@@ -1,7 +1,6 @@
-use
-    db_01_services;
+USE db_01_services;
 
-
+-- Inserindo dados na tabela tb_mcc_classification
 INSERT INTO tb_mcc_classification (type_id, type_name)
 SELECT 1, 'FOOD' WHERE NOT EXISTS (SELECT 1 FROM tb_mcc_classification WHERE type_id = 1);
 
@@ -11,7 +10,7 @@ SELECT 2, 'MEAL' WHERE NOT EXISTS (SELECT 1 FROM tb_mcc_classification WHERE typ
 INSERT INTO tb_mcc_classification (type_id, type_name)
 SELECT 3, 'CASH' WHERE NOT EXISTS (SELECT 1 FROM tb_mcc_classification WHERE type_id = 3);
 
--- Insert data into tb_mcc only if it does not exist
+-- Inserindo dados na tabela tb_mcc
 INSERT INTO tb_mcc (code, type_id, description)
 SELECT '5411', 1, 'MERCEARIAS/SUPERMERCADOS' WHERE NOT EXISTS (SELECT 1 FROM tb_mcc WHERE code = '5411');
 
@@ -33,29 +32,22 @@ SELECT '4111', 3, 'TRANSPORTE LOCAL DE PASSAGEIROS' WHERE NOT EXISTS (SELECT 1 F
 INSERT INTO tb_mcc (code, type_id, description)
 SELECT '4829', 3, 'ORDENS DE PAGAMENTO POR TRANSFERENCIA BANCARIA' WHERE NOT EXISTS (SELECT 1 FROM tb_mcc WHERE code = '4829');
 
+-- Inserindo dados na tabela tb_account
+INSERT INTO tb_account (account_id, amount_cash, amount_meal, amount_food)
+SELECT '1001', 1000.00, 400.00, 400.00 WHERE NOT EXISTS (SELECT 1 FROM tb_account WHERE account_id = '5678');
 
 INSERT INTO tb_account (account_id, amount_cash, amount_meal, amount_food)
-SELECT '5678', 1200.00, 600.00, 800.00 WHERE NOT EXISTS (SELECT 1 FROM tb_account WHERE account_id = '5678');
+SELECT '1002', 500.00, 100.00, 100.00 WHERE NOT EXISTS (SELECT 1 FROM tb_account WHERE account_id = '1234');
 
-INSERT INTO tb_account (account_id, amount_cash, amount_meal, amount_food)
-SELECT '1234', 1500.00, 700.00, 900.00 WHERE NOT EXISTS (SELECT 1 FROM tb_account WHERE account_id = '1234');
-
-
--- Inserindo dados na tabela b_merchant_mcc
+-- Inserindo dados na tabela tb_merchant_mcc
+INSERT INTO tb_merchant_mcc (merchant_name, mcc)
+SELECT 'UBER TRIP SAO PAULO BR', '4121' WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'UBER TRIP SAO PAULO BR');
 
 INSERT INTO tb_merchant_mcc (merchant_name, mcc)
-SELECT 'UBER TRIP                   SAO PAULO BR', '4121'
-WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'UBER TRIP                   SAO PAULO BR');
+SELECT 'UBER EATS SAO PAULO BR', '5812' WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'UBER EATS SAO PAULO BR');
 
 INSERT INTO tb_merchant_mcc (merchant_name, mcc)
-SELECT 'UBER EATS                   SAO PAULO BR', '5812'
-WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'UBER EATS                   SAO PAULO BR');
+SELECT 'PAG*JoseDaSilva RIO DE JANEI BR', '4829' WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'PAG*JoseDaSilva RIO DE JANEI BR');
 
 INSERT INTO tb_merchant_mcc (merchant_name, mcc)
-SELECT 'PAG*JoseDaSilva          RIO DE JANEI BR', '4829'
-WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'PAG*JoseDaSilva          RIO DE JANEI BR');
-
-INSERT INTO tb_merchant_mcc (merchant_name, mcc)
-SELECT 'PICPAY*BILHETEUNICO           GOIANIA BR', '4111'
-WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'PICPAY*BILHETEUNICO           GOIANIA BR');
-
+SELECT 'PICPAY*BILHETEUNICO GOIANIA BR', '4111' WHERE NOT EXISTS (SELECT 1 FROM tb_merchant_mcc WHERE merchant_name = 'PICPAY*BILHETEUNICO GOIANIA BR');
