@@ -1,8 +1,8 @@
 package br.com.caju.transacionmanager.usecase.strategy;
 
 import br.com.caju.transacionmanager.domain.exception.InsufficientFundsException;
-import br.com.caju.transacionmanager.domain.model.Account;
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardAccount;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,19 +16,19 @@ abstract class BalanceAbstract implements BalanceStrategy {
 
     public abstract Boolean isClassification(String classification);
 
-    public abstract Account debitBalanceInAccount(Transaction transaction, Account account) throws InsufficientFundsException;
+    public abstract CreditGuardAccount debitBalanceInAccount(CreditGuardTransaction creditGuardTransaction, CreditGuardAccount creditGuardAccount) throws InsufficientFundsException;
 
     protected Boolean hasCashSufficient(BigDecimal amountToDebit, BigDecimal cash) {
         return amountToDebit.compareTo(cash) <= 0;
     }
 
-    public Account processTransaction(Account account, Transaction transaction) throws InsufficientFundsException {
-        log.info("process transaction in account {} ", account.getAccountId());
+    public CreditGuardAccount processTransaction(CreditGuardAccount creditGuardAccount, CreditGuardTransaction creditGuardTransaction) throws InsufficientFundsException {
+        log.info("process transaction in account {} ", creditGuardAccount.getAccountId());
         try {
-            return this.debitBalanceInAccount(transaction, account);
+            return this.debitBalanceInAccount(creditGuardTransaction, creditGuardAccount);
         } catch (InsufficientFundsException e) {
             log.info("Insufficient balance, preparing to debit CASH balance ");
-            return debitBalanceDefault(transaction.getAmount(), account);
+            return debitBalanceDefault(creditGuardTransaction.getAmount(), creditGuardAccount);
         }
     }
 
@@ -36,13 +36,13 @@ abstract class BalanceAbstract implements BalanceStrategy {
         return amountAccount.subtract(amountTransaction);
     }
 
-    protected Account debitBalanceDefault(BigDecimal amountTransaction, Account account) throws InsufficientFundsException {
-        var hasCash = hasCashSufficient(amountTransaction, account.getAmountCash());
+    protected CreditGuardAccount debitBalanceDefault(BigDecimal amountTransaction, CreditGuardAccount creditGuardAccount) throws InsufficientFundsException {
+        var hasCash = hasCashSufficient(amountTransaction, creditGuardAccount.getAmountCash());
         if (hasCash) {
-            var newBalance = debit(account.getAmountCash(), amountTransaction);
+            var newBalance = debit(creditGuardAccount.getAmountCash(), amountTransaction);
             log.info("debit cash successfully updated");
-            account.setAmountCash(newBalance);
-            return account;
+            creditGuardAccount.setAmountCash(newBalance);
+            return creditGuardAccount;
         }
         throw new InsufficientFundsException("Unable to debit transaction insufficient balance");
     }

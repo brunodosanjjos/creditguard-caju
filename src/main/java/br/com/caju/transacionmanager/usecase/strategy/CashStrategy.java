@@ -2,8 +2,8 @@ package br.com.caju.transacionmanager.usecase.strategy;
 
 
 import br.com.caju.transacionmanager.domain.exception.InsufficientFundsException;
-import br.com.caju.transacionmanager.domain.model.Account;
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardAccount;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -18,14 +18,14 @@ public class CashStrategy extends BalanceAbstract {
     }
 
     @Override
-    public Account processTransaction(Transaction transaction, Account account) throws InsufficientFundsException {
-        return this.debitBalanceInAccount(transaction, account);
+    public CreditGuardAccount processTransaction(CreditGuardTransaction creditGuardTransaction, CreditGuardAccount creditGuardAccount) throws InsufficientFundsException {
+        return this.debitBalanceInAccount(creditGuardTransaction, creditGuardAccount);
     }
 
     @Override
-    public Account debitBalanceInAccount(Transaction transaction, Account account) throws InsufficientFundsException {
-        log.info("preparing to debit {} in account {},  balance of {}", transaction.getAmount(), account.getAccountId(), CLASSIFICATION);
-        return super.debitBalanceDefault(transaction.getAmount(), account);
+    public CreditGuardAccount debitBalanceInAccount(CreditGuardTransaction creditGuardTransaction, CreditGuardAccount creditGuardAccount) throws InsufficientFundsException {
+        log.info("preparing to debit {} in account {},  balance of {}", creditGuardTransaction.getAmount(), creditGuardAccount.getAccountId(), CLASSIFICATION);
+        return super.debitBalanceDefault(creditGuardTransaction.getAmount(), creditGuardAccount);
 
     }
 

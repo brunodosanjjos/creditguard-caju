@@ -2,7 +2,7 @@ package br.com.caju.transacionmanager.usecase;
 
 import br.com.caju.transacionmanager.adapters.out.repository.AccountRepository;
 import br.com.caju.transacionmanager.domain.exception.AccountNotFoundException;
-import br.com.caju.transacionmanager.domain.model.Account;
+import br.com.caju.transacionmanager.domain.model.CreditGuardAccount;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AccountStrategyTest {
+class CreditGuardAccountStrategyTest {
 
     @Mock
     private AccountRepository accountRepository;
@@ -29,22 +29,22 @@ class AccountStrategyTest {
 
     @Test
     void testGetAccountWithSuccess(){
-        Account account = getAccount();
-        when(accountRepository.findById(account.getAccountId())).thenReturn(Optional.of(account));
-        var result = accountStrategy.getAccount(account.getAccountId());
+        CreditGuardAccount creditGuardAccount = getAccount();
+        when(accountRepository.findById(creditGuardAccount.getAccountId())).thenReturn(Optional.of(creditGuardAccount));
+        var result = accountStrategy.getAccount(creditGuardAccount.getAccountId());
         assertNotNull(result);
-        assertEquals(account.getAccountId(), result.getAccountId());
-        verify(accountRepository, times(1)).findById(account.getAccountId());
+        assertEquals(creditGuardAccount.getAccountId(), result.getAccountId());
+        verify(accountRepository, times(1)).findById(creditGuardAccount.getAccountId());
     }
 
     @Test
     void testAccountNotFound(){
-        Account account = getAccount();
-        doThrow(AccountNotFoundException.class).when(accountRepository).findById(account.getAccountId());
+        CreditGuardAccount creditGuardAccount = getAccount();
+        doThrow(AccountNotFoundException.class).when(accountRepository).findById(creditGuardAccount.getAccountId());
         Assertions.assertThrows(AccountNotFoundException.class,
-                () -> accountStrategy.getAccount(account.getAccountId()),
+                () -> accountStrategy.getAccount(creditGuardAccount.getAccountId()),
                         "Account 1234 not exists");
-        verify(accountRepository, times(1)).findById(account.getAccountId());
+        verify(accountRepository, times(1)).findById(creditGuardAccount.getAccountId());
     }
 
     @Test

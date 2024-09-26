@@ -22,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "tb_crgd_account")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true )
-public class Account {
+public class CreditGuardAccount {
 
     @Id
     @Column(name = "account_id")
@@ -39,6 +39,6 @@ public class Account {
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Transaction> transactions;
+    private Set<CreditGuardTransaction> creditGuardTransactions;
 
 }

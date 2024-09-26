@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "tb_crgd_transaction")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Transaction {
+public class CreditGuardTransaction {
 
     @Id
     @Column(name = "transaction_id")
@@ -34,7 +34,7 @@ public class Transaction {
     @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private Account account;
+    private CreditGuardAccount account;
     private String mcc;
     private String merchant;
     private BigDecimal amount;

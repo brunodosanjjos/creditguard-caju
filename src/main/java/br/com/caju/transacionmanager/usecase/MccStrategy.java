@@ -2,7 +2,7 @@ package br.com.caju.transacionmanager.usecase;
 
 import br.com.caju.transacionmanager.adapters.out.repository.MccRepository;
 import br.com.caju.transacionmanager.adapters.out.repository.MerchantRepository;
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
 import br.com.caju.transacionmanager.port.MccPort;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,20 +21,20 @@ public class MccStrategy implements MccPort {
         return "CASH";
     }
 
-    public String findClassification(Transaction transaction) {
-        log.info("Finding classification for merchant: {} or MCC: {}", transaction.getMerchant(), transaction.getMcc());
-        String merchantMcc = getMerchantMccForName(transaction);
+    public String findClassification(CreditGuardTransaction creditGuardTransaction) {
+        log.info("Finding classification for merchant: {} or MCC: {}", creditGuardTransaction.getMerchant(), creditGuardTransaction.getMcc());
+        String merchantMcc = getMerchantMccForName(creditGuardTransaction);
         return getClassificationByMcc(merchantMcc);
     }
 
-    private String getMerchantMccForName(Transaction transaction) {
+    private String getMerchantMccForName(CreditGuardTransaction creditGuardTransaction) {
         // Strategy L1 and L3 Challenge
         try {
-            return merchantRepository.findMccByMerchantName(transaction.getMerchant())
-                    .orElseGet(transaction::getMcc);
+            return merchantRepository.findMccByMerchantName(creditGuardTransaction.getMerchant())
+                    .orElseGet(creditGuardTransaction::getMcc);
         } catch (IncorrectResultSizeDataAccessException e) {
-            log.warn("Multiple results found for merchant: {}. Using transaction MCC: {}", transaction.getMerchant(), transaction.getMcc());
-            return transaction.getMcc();
+            log.warn("Multiple results found for merchant: {}. Using transaction MCC: {}", creditGuardTransaction.getMerchant(), creditGuardTransaction.getMcc());
+            return creditGuardTransaction.getMcc();
         }
     }
 

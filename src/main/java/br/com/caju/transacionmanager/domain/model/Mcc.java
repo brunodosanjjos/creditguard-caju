@@ -28,7 +28,7 @@ public class Mcc {
     private String code;
     @ManyToOne
     @JoinColumn(name = "type_id")// muitos tipos ex food, podem estar relacionados a varios mccs
-    private ClassificationMcc classification;
+    private MccType classification;
 
     private String description;
 

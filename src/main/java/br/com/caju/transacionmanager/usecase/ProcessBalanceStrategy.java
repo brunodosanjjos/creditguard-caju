@@ -1,8 +1,8 @@
 package br.com.caju.transacionmanager.usecase;
 
 import br.com.caju.transacionmanager.domain.exception.InsufficientFundsException;
-import br.com.caju.transacionmanager.domain.model.Account;
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardAccount;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
 import br.com.caju.transacionmanager.port.BalanceAmountPort;
 import br.com.caju.transacionmanager.port.MccPort;
 import br.com.caju.transacionmanager.usecase.strategy.BalanceStrategy;
@@ -21,20 +21,20 @@ public class ProcessBalanceStrategy implements BalanceAmountPort {
     private final MccPort mccPort;
 
     @Override
-    public void processBalance(Transaction transaction, Account account) throws InsufficientFundsException {
-        BalanceStrategy strategy = getClassificationStrategy(transaction);
-        Account updatedAccount = strategy.processTransaction(transaction, account);
-        accountStrategy.update(updatedAccount);
+    public void processBalance(CreditGuardTransaction creditGuardTransaction, CreditGuardAccount creditGuardAccount) throws InsufficientFundsException {
+        BalanceStrategy strategy = getClassificationStrategy(creditGuardTransaction);
+        CreditGuardAccount updatedCreditGuardAccount = strategy.processTransaction(creditGuardTransaction, creditGuardAccount);
+        accountStrategy.update(updatedCreditGuardAccount);
     }
 
-    private BalanceStrategy getClassificationStrategy(Transaction transaction) {
-        log.info("Getting classification for transaction {}", transaction.getTransactionId());
-        String merchantClassification = mccPort.findClassification(transaction);
+    private BalanceStrategy getClassificationStrategy(CreditGuardTransaction creditGuardTransaction) {
+        log.info("Getting classification for transaction {}", creditGuardTransaction.getTransactionId());
+        String merchantClassification = mccPort.findClassification(creditGuardTransaction);
 
         return strategies.stream()
                 .filter(strategy -> strategy.isClassification(merchantClassification))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Classification not found for transaction " + transaction.getTransactionId()));
+                .orElseThrow(() -> new RuntimeException("Classification not found for transaction " + creditGuardTransaction.getTransactionId()));
     }
 
 }

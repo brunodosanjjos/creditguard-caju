@@ -1,8 +1,8 @@
 package br.com.caju.transacionmanager.port;
 
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
 
 public interface MccPort {
 
-    String findClassification(Transaction transaction);
+    String findClassification(CreditGuardTransaction creditGuardTransaction);
 }

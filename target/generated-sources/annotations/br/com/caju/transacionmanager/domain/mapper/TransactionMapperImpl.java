@@ -1,7 +1,8 @@
 package br.com.caju.transacionmanager.domain.mapper;
 
 import br.com.caju.transacionmanager.domain.dto.TransactionDTO;
-import br.com.caju.transacionmanager.domain.model.Transaction;
+import br.com.caju.transacionmanager.domain.model.CreditGuardTransaction;
+
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +15,12 @@ import org.springframework.stereotype.Component;
 public class TransactionMapperImpl implements TransactionMapper {
 
     @Override
-    public Transaction toEntity(TransactionDTO transactionDto) {
+    public CreditGuardTransaction toEntity(TransactionDTO transactionDto) {
         if ( transactionDto == null ) {
             return null;
         }
 
-        Transaction.TransactionBuilder transaction = Transaction.builder();
+        CreditGuardTransaction.TransactionBuilder transaction = CreditGuardTransaction.builder();
 
         transaction.account( mapIdToAccount( transactionDto.getAccount() ) );
         transaction.amount( transactionDto.getTotalAmount() );
