@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "tb_merchant_mcc")
+@Table(name = "tb_merchant")
 public class Merchant {
     @Id
     @Column(name = "merchant_name")

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS db_01_services;
-USE db_01_services;
+CREATE DATABASE IF NOT EXISTS db_creditguard;
+USE db_creditguard;
 CREATE USER IF NOT EXISTS 'myuser'@'%' IDENTIFIED BY 'secret';
-GRANT ALL PRIVILEGES ON db_01_services.* TO 'myuser'@'%';
+GRANT ALL PRIVILEGES ON db_creditguard.* TO 'myuser'@'%';
 FLUSH PRIVILEGES

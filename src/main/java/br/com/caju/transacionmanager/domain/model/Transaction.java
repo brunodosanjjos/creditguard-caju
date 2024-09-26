@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_transaction")
+@Table(name = "tb_crgd_transaction")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Transaction {
 

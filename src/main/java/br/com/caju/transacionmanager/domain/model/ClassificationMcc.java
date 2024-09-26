@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "tb_mcc_classification")
+@Table(name = "tb_mcc_type")
 public class ClassificationMcc {
 
     @Id

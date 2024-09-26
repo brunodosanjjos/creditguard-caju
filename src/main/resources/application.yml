@@ -3,9 +3,9 @@ spring:
     name: creditguard
   sql:
     init:
-      mode: always # to create tables using schema.sql and data.sql
+      mode: always
   datasource:
-    url: jdbc:mysql://localhost:3607/db_01_services
+    url: jdbc:mysql://localhost:3607/db_creditguard
     username: ${DATABASE_USERNAME:myuser}
     password: ${DATABASE_PASSWORD:secret}
   jpa:

@@ -20,7 +20,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_account")
+@Table(name = "tb_crgd_account")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true )
 public class Account {
 
